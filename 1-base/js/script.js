@@ -1,7 +1,7 @@
-//scene
+// 场景
 const scene = new THREE.Scene();
 
-// cube
+// 立方体
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
@@ -12,18 +12,16 @@ const size = {
   height: 600
 }
 
-// camera
+// 相机
 const camera = new THREE.PerspectiveCamera(75, size.width / size.height);
 camera.position.z = 3
 scene.add(camera);
 
-// render
+// 渲染器
 const canvas = document.getElementById('threeCanvas');
-console.log(canvas);
-
-const render = new THREE.WebGLRenderer({
+const renderer = new THREE.WebGLRenderer({
   canvas
 })
-render.setSize(size.width, size.height);
-render.render(scene, camera);
+renderer.setSize(size.width, size.height);
+renderer.render(scene, camera);
 
