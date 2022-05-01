@@ -1,0 +1,22 @@
+{
+  "extends": "@antfu",
+  "rules": {
+    "vue/component-tags-order": [
+      "error",
+      {
+        "order": [["script", "template"], "style"]
+      }
+    ],
+    "vue/max-attributes-per-line": [
+      "error",
+      {
+        "singleline": {
+          "max": 1
+        },
+        "multiline": {
+          "max": 1
+        }
+      }
+    ]
+  }
+}
