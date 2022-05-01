@@ -10,6 +10,7 @@ specifiers:
   '@vue/test-utils': ^2.0.0-rc.19
   '@vueuse/core': ^8.2.5
   eslint: ^8.13.0
+  gsap: 3.5.1
   jsdom: ^19.0.0
   pnpm: ^6.32.6
   three: ^0.140.0
@@ -26,6 +27,7 @@ specifiers:
 
 dependencies:
   '@vueuse/core': 8.2.5_vue@3.2.31
+  gsap: 3.5.1
   three: 0.140.0
   vue: 3.2.31
   vue-router: 4.0.14_vue@3.2.31
@@ -2117,6 +2119,10 @@ packages:
       merge2: 1.4.1
       slash: 3.0.0
     dev: true
+
+  /gsap/3.5.1:
+    resolution: {integrity: sha512-EMV0RSUKZNeTUzLKAizGlwxVOUyif3/g8I3S1aA/hf3gbqwBvmQ02x1RdTBQNQMOpHCVBv9y/vaHwfctoAg8zw==}
+    dev: false
 
   /gzip-size/6.0.0:
     resolution: {integrity: sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q==}

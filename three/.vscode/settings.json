@@ -9,5 +9,6 @@
   },
   "[vue]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  }
+  },
+  "commentTranslate.source": "Baidu"
 }

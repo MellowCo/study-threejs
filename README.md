@@ -175,7 +175,7 @@ mesh.rotation.x = 0.5 * Math.PI;
 
 ---
 
-## Group
+### Group
 
 > 通过[Group](https://threejs.org/docs/index.html?q=Grou#api/zh/objects/Group)管理多个物体
 
@@ -201,3 +201,113 @@ group.rotation.z = 0.25 * Math.PI;
 ```
 
 <img src="https://cdn.jsdelivr.net/gh/MellowCo/image-host/2022/202204302143422.png" alt="image-20220430214321392" style="zoom:50%;" />
+
+
+
+---
+
+## 动画（animation）
+
+> 使用`requestAnimationFrame`，在每一帧调用动画
+
+```js
+ const animation = () => {
+    mesh.rotation.y += 0.05
+    requestAnimationFrame(animation)
+    renderer.render(scene, camera)
+    console.log(1)
+  }
+
+  animation()
+```
+
+> 由于`requestAnimationFrame`按照刷新率执行动画，帧速率越高，旋转速度越快
+
+### deltaTime
+
+> 使用增量时间，无论帧速率如何，都以相同的速度旋转
+
+```js
+let time = Date.now()
+const animation = () => {
+  const currentTime = Date.now()
+  const deltaTime = currentTime - time
+  time = currentTime
+  // 旋转
+  mesh.rotation.y += deltaTime * 0.001
+  requestAnimationFrame(animation)
+  renderer.render(scene, camera)
+}
+
+animation()
+```
+
+
+
+---
+
+### [Clock](https://threejs.org/docs/index.html?q=Clock#api/zh/core/Clock)
+
+> 使用`threejs`中的内置时钟
+
+```js
+const clock = new Clock()
+const animation = () => {
+  // 通过 clock 保持不同帧率，旋转速度相同
+  const elapsedTime = clock.getElapsedTime()
+
+  // 旋转
+  // mesh.rotation.y = elapsedTime
+
+  // 圆周运动
+  mesh.position.y = Math.sin(elapsedTime)
+  mesh.position.x = Math.cos(elapsedTime)
+
+  requestAnimationFrame(animation)
+  renderer.render(scene, camera)
+}
+
+animation()
+```
+
+
+
+---
+
+### 复杂动画	
+
+> 使用`gasp`,生成复杂动画
+
+```shell
+pnpm add gsap@3.5.1
+```
+
+```js
+import gsap from 'gsap'
+ 
+
+// 使用gasp实现 一段动画
+gsap.to(mesh.position, {
+  x: 1,
+  duration: 1,
+  delay: 1,
+})
+
+gsap.to(mesh.position, {
+  x: 0,
+  duration: 1,
+  delay: 2,
+})
+
+const animation = () => {
+  requestAnimationFrame(animation)
+  renderer.render(scene, camera)
+}
+
+animation()
+```
+
+
+
+
+
