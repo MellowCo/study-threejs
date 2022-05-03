@@ -309,5 +309,69 @@ animation()
 
 
 
+---
 
+## 相机 [Camera](https://threejs.org/docs/index.html#api/zh/cameras/Camera)
+
+### [PerspectiveCamera](https://threejs.org/docs/index.html#api/zh/cameras/PerspectiveCamera)
+
+> 透视相机，模拟人眼所看到的景象，物体的大小会随着相机的距离而改变，近大远小
+
+```js
+const camera = new PerspectiveCamera(75, size.width / size.height, 0.1, 1000)
+```
+
+
+
+---
+### [OrthographicCamera](https://threejs.org/docs/index.html#api/zh/cameras/OrthographicCamera)
+
+> 正交相机，无论物体距离相机距离远或者近，在最终渲染的图片中物体的大小都保持不变。需要给相机设置`横纵比`，保证物体的比例正确
+
+<img src="https://mellow-notebook-img.oss-cn-shanghai.aliyuncs.com/2022/202205031936169.png" alt="image-20220503193629072" style="zoom:50%;" />
+
+```js
+const size = {
+  width: 800,
+  height: 200,
+}
+
+// 设置横纵比，保证物体的比例正确
+const aspectRatio = size.width / size.height
+const camera = new OrthographicCamera(-1 * aspectRatio, 1 * aspectRatio, 1, -1, 0.1, 1000)
+```
+
+<img src="https://mellow-notebook-img.oss-cn-shanghai.aliyuncs.com/2022/202205031942062.png" alt="image-20220503194238019" style="zoom:50%;" />
+
+
+
+---
+
+### 使用鼠标移动相机
+
+```js
+// mouse事件
+const cursor = {
+  x: 0,
+  y: 0,
+}
+window.addEventListener('mousemove', (event) => {
+  // -0.5 到 0.5 将canvas分为上下左右区域
+  cursor.x = event.clientX / size.width - 0.5
+  cursor.y = -(event.clientY / size.height - 0.5)
+})
+
+  const animation = () => {
+    // 移动相机
+    camera.position.x = Math.sin(cursor.x * 2 * Math.PI) * 3
+    camera.position.z = Math.cos(cursor.x * 2 * Math.PI) * 3
+    camera.position.y = cursor.y * 3
+    camera.lookAt(mesh.position)
+
+    requestAnimationFrame(animation)
+    renderer.render(scene, camera)
+  }
+
+  animation()
+```
 
