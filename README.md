@@ -375,3 +375,51 @@ window.addEventListener('mousemove', (event) => {
   animation()
 ```
 
+
+
+---
+
+## 全屏和调整视口大小
+
+### 全屏
+
+```js
+// 设置画面大小
+const size = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+}
+```
+
+
+
+---
+### 监听浏览器窗口
+
+```js
+  window.addEventListener('resize', () => {
+    // 浏览器窗口大小改变时，重新设置画面大小
+    size = {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    }
+    // 更新相机横纵比
+    camera.aspect = size.width / size.height
+    // 更新相机投影
+    camera.updateProjectionMatrix()
+    // 更新画布的大小
+    renderer.setSize(size.width, size.height)
+  })
+```
+
+
+
+---
+
+### 像素比（解决模糊问题）
+
+```js
+  // 根据设备设置像素比
+  renderer.setPixelRatio(window.devicePixelRatio)
+```
+
