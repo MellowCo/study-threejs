@@ -311,7 +311,7 @@ animation()
 
 ---
 
-## 相机 [Camera](https://threejs.org/docs/index.html#api/zh/cameras/Camera)
+## [相机 Camera](https://threejs.org/docs/index.html#api/zh/cameras/Camera)
 
 ### [PerspectiveCamera](https://threejs.org/docs/index.html#api/zh/cameras/PerspectiveCamera)
 
@@ -379,6 +379,34 @@ window.addEventListener('mousemove', (event) => {
 
 ---
 
+### [控制器-OrbitControls](https://threejs.org/docs/index.html#examples/zh/controls/OrbitControls)
+
+> 通过`OrbitControls`,实现鼠标移动相机
+
+```js
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+
+// 控制器
+const controls = new OrbitControls(camera, threeCanvas.value!)
+// 启用阻尼,使动画有重量感
+controls.enableDamping = true
+                                   
+// 通过定时器，更新控制器                        
+const animation = () => {
+  // 更新控制器
+  controls.update()
+
+  renderer.render(scene, camera)
+  requestAnimationFrame(animation)
+}
+
+animation()
+```
+
+
+
+---
+
 ## 全屏和调整视口大小
 
 ### 全屏
@@ -423,3 +451,59 @@ const size = {
   renderer.setPixelRatio(window.devicePixelRatio)
 ```
 
+
+
+---
+
+## [几何体 Geometry](https://threejs.org/docs/index.html#api/zh/geometries/BoxGeometry)
+
+### [立方体 BoxGeometry](https://threejs.org/docs/index.html#api/zh/geometries/BoxGeometry)
+
+* width — X轴上面的宽度，默认值为1。
+* height — Y轴上面的高度，默认值为1。
+* depth — Z轴上面的深度，默认值为1。
+* widthSegments — （可选）宽度的分段数，默认值是1。
+* heightSegments — （可选）高度的分段数，默认值是1。
+* depthSegments — （可选）深度的分段数，默认值是1
+
+```js
+// 立方体
+const geometry = new BoxGeometry(1, 1, 1, 2, 2, 4)
+
+
+const material = new MeshBasicMaterial({
+  color: 0x00FF00,
+  // wireframe: 显示线框
+  wireframe: true,
+})
+```
+
+<img src="https://cdn.jsdelivr.net/gh/MellowCo/image-host/2022/202205092057158.png" alt="image-20220507221900365" style="zoom:50%;" />
+
+
+
+---
+
+### [BufferGeometry](https://threejs.org/docs/index.html?q=Geometry#api/zh/core/BufferGeometry)
+
+> 自定义几何体
+
+```js
+const geometry = new BufferGeometry()
+
+const vertices = new Float32Array([
+  // 第一点的坐标 x,y,z
+  0, 0, 0,
+  // 第二点的坐标 x,y,z
+  0, 1, 0,
+  // 第三点的坐标 x,y,z
+  1, 0, 0,
+])
+
+// itemSize = 3，3组顶点为一组图形（ ），可以通过多个三角形，构成一个几何体，和BoxGeometry相同
+geometry.setAttribute('position', new BufferAttribute(vertices, 3))
+const material = new MeshBasicMaterial({ color: 0xFF0000, wireframe: true })
+const mesh = new Mesh(geometry, material)
+```
+
+<img src="https://cdn.jsdelivr.net/gh/MellowCo/image-host/2022/202205092154318.png" alt="image-20220509215444238" style="zoom:50%;" />

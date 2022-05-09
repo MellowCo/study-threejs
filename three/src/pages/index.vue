@@ -12,9 +12,9 @@
 </template>
 
 <script setup lang="ts">
-const routes = useRouter().options.routes.filter(route => /\d/.test(route.name as string))
-  .map(route => ({
-    path: route.path,
-    name: (route.name! as string).replace(/\d/g, ''),
-  }))
+import vr from 'virtual:generated-pages'
+import { formatRoutes } from '~/uitls'
+console.log(vr)
+
+const routes = formatRoutes(vr)
 </script>
