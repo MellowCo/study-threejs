@@ -542,3 +542,100 @@ gui.addColor(params, 'color').onChange(() => {
 gui.add(params, 'spin')
 ```
 
+
+
+---
+
+## [7 纹理（texture）](https://threejs.org/docs/index.html#api/zh/textures/Texture)
+
+### 加载纹理
+
+```js
+// 纹理
+const texture = new TextureLoader().load('/static/textures/door/color.jpg')
+
+// 立方体
+const geometry = new BoxGeometry(1, 1, 1, 2, 2, 4)
+const material = new MeshBasicMaterial({
+  // 设置纹理
+  map: texture,
+})
+```
+
+![image-20220516202533640](https://cdn.jsdelivr.net/gh/MellowCo/image-host/2022/202205162025761.png)
+
+
+
+---
+
+### [LoadingManager](https://threejs.org/docs/index.html?q=loading#api/zh/loaders/managers/LoadingManager)
+
+> 监听纹理加载
+
+```js
+// 纹理加载管理器
+const loadingManager = new LoadingManager()
+
+loadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
+  console.log(`${url} start: ${itemsLoaded}/${itemsTotal}`)
+}
+
+loadingManager.onLoad = () => {
+  console.log('all textures loaded')
+}
+
+loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
+  console.log(`${url} loaded: ${itemsLoaded}/${itemsTotal}`)
+}
+
+loadingManager.onError = (url) => {
+  console.log(`${url} load error`)
+}
+
+// 纹理加载器
+const textureLoader = new TextureLoader(loadingManager)
+const colorTexture = textureLoader.load('/static/textures/door/color.jpg')
+const alphaTexture = textureLoader.load('/static/textures/door/alpha.jpg')
+const heightTexture = textureLoader.load('/static/textures/door/height.jpg')
+const normalTexture = textureLoader.load('/static/textures/door/normal.jpg')
+const ambientOcclusionTexture = textureLoader.load(
+  '/static/textures/door/ambientOcclusion.jpg',
+)
+const metalnessTexture = textureLoader.load('/static/textures/door/metalness.jpg')
+const roughnessTexture = textureLoader.load('/static/textures/door/roughness.jpg')
+
+```
+
+
+
+---
+
+### magFilter
+
+> 当一个纹素覆盖大于一个像素时，贴图将如何采样，[放大滤镜](https://threejs.org/docs/index.html#api/zh/constants/Textures)
+
+```js
+// 放大滤镜
+minecraft.magFilter = LinearFilter
+minecraft.needsUpdate = true
+```
+
+![image-20220516212937430](https://cdn.jsdelivr.net/gh/MellowCo/image-host/2022/202205162129596.png)
+
+
+
+---
+
+### minFilter
+
+> 当一个纹素覆盖小于一个像素时，贴图将如何采样,[缩小滤镜](https://threejs.org/docs/index.html#api/zh/constants/Textures)
+
+```js
+// 缩小滤镜
+checkerboard1024.minFilter = LinearFilter
+checkerboard1024.needsUpdate = true
+```
+
+
+
+![image-20220516214225228](https://cdn.jsdelivr.net/gh/MellowCo/image-host/2022/202205162142401.png)
