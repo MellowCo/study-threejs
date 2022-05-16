@@ -31,7 +31,7 @@ renderer.render(scene, camera);
 
 
 
-## 改变物体（transform）
+## 1 改变物体（transform）
 
 通过4个属性改变物体，threejs中所有物体类都继承[Object3D ](https://threejs.org/docs/index.html#api/zh/core/Object3D)
 
@@ -206,7 +206,7 @@ group.rotation.z = 0.25 * Math.PI;
 
 ---
 
-## 动画（animation）
+## 2 动画（animation）
 
 > 使用`requestAnimationFrame`，在每一帧调用动画
 
@@ -311,7 +311,7 @@ animation()
 
 ---
 
-## [相机 Camera](https://threejs.org/docs/index.html#api/zh/cameras/Camera)
+## 3 [相机 Camera](https://threejs.org/docs/index.html#api/zh/cameras/Camera)
 
 ### [PerspectiveCamera](https://threejs.org/docs/index.html#api/zh/cameras/PerspectiveCamera)
 
@@ -407,7 +407,7 @@ animation()
 
 ---
 
-## 全屏和调整视口大小
+## 4 全屏和调整视口大小
 
 ### 全屏
 
@@ -455,7 +455,7 @@ const size = {
 
 ---
 
-## [几何体 Geometry](https://threejs.org/docs/index.html#api/zh/geometries/BoxGeometry)
+## 5 [几何体 Geometry](https://threejs.org/docs/index.html#api/zh/geometries/BoxGeometry)
 
 ### [立方体 BoxGeometry](https://threejs.org/docs/index.html#api/zh/geometries/BoxGeometry)
 
@@ -507,3 +507,38 @@ const mesh = new Mesh(geometry, material)
 ```
 
 <img src="https://cdn.jsdelivr.net/gh/MellowCo/image-host/2022/202205092154318.png" alt="image-20220509215444238" style="zoom:50%;" />
+
+
+
+---
+
+## 6 debug
+
+> [dat.gui](https://github.com/dataarts/dat.gui/blob/master/API.md)
+
+```js
+// debug
+const gui = new dat.GUI({ name: 'My GUI' })
+// 改变x
+gui.add(mesh.position, 'x', -10, 10)
+// 链式调用
+gui.add(mesh.position, 'y').min(-10).max(10).step(0.1)
+gui.add(material, 'wireframe')
+
+const params = {
+  color: 0xFF0000,
+  spin() {
+    gsap.to(mesh.rotation, {
+      y: mesh.rotation.y + 10,
+      duration: 1,
+    })
+  },
+}
+// 更改颜色
+gui.addColor(params, 'color').onChange(() => {
+  material.color.set(params.color)
+})
+// 旋转动画
+gui.add(params, 'spin')
+```
+
